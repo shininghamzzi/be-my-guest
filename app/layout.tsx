@@ -22,13 +22,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://tv-be-my-guest.vercel.app/"),
   title: "비마이게스트 회차별 불판",
-  description: "총 53부작 캡처 대신 텍스트로 달리는 실시간 감상존",
+  description: "(총 53부작) 텍스트로 달리는 실시간 감상존",
   openGraph: {
     title: "비마이게스트 회차별 불판 🎬",
-    description: "총 53부작 캡처 대신 텍스트로 달리는 실시간 감상존",
+    description: "(총 53부작) 텍스트로 달리는 실시간 감상존",
     images: [
       {
-        url: "/poster.jpeg",
+        url: "/poster-twitter-two.jpg",
         width: 1200,
         height: 630,
         alt: "비마이게스트 불판",
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "비마이게스트 회차별 불판 🎬",
-    description: "총 53부작 캡처 대신 텍스트로 달리는 실시간 감상존",
-    images: ["/poster-twitter.jpg"],
+    description: "(총 53부작) 텍스트로 달리는 실시간 감상존",
+    images: ["/poster-twitter-two.jpg"],
   },
 };
 

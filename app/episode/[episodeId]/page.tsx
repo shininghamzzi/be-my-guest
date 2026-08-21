@@ -13,7 +13,6 @@ import {
   Trash2,
   X,
   Check,
-  Flame,
 } from "lucide-react";
 
 interface Comment {
@@ -92,10 +91,6 @@ export default function EpisodePage({
       setter(digits);
     }
   };
-
-  const timelineComments = comments.filter(
-    (c) => !c.is_hidden && parseTimeToSeconds(c.timestamp_tag) !== null,
-  );
 
   const sortedComments = [...comments].sort((a, b) => {
     if (sortBy === "timeline") {
@@ -417,7 +412,7 @@ export default function EpisodePage({
                       })}
                     </span>
                     {!c.is_hidden && (
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-2">
                         <button
                           onClick={() => openModal(c, "edit")}
                           className="text-neutral-500 transition hover:text-rose-400"

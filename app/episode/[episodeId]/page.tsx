@@ -327,7 +327,7 @@ export default function EpisodePage({
         </div>
 
         <textarea
-          placeholder="캡처 못 하는 한을 텍스트로 달려주세요! (타임라인 환영)"
+          placeholder="감상을 남겨주세요! (타임라인 환영)"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={3}

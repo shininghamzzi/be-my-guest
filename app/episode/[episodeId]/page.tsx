@@ -61,6 +61,7 @@ export default function EpisodePage({
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sortBy, setSortBy] = useState<"latest" | "timeline">("latest");
+  const [botTrap, setBotTrap] = useState("");
 
   const [modalComment, setModalComment] = useState<Comment | null>(null);
   const [modalType, setModalType] = useState<"edit" | "delete" | null>(null);
@@ -110,6 +111,15 @@ export default function EpisodePage({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (botTrap) return;
+
+    // 광고 링크 차단: http, https, .com 등이 포함된 경우
+    if (/https?:\/\/|www\./i.test(content)) {
+      alert("링크(URL)는 등록할 수 없습니다.");
+      return;
+    }
+
     if (!nickname.trim() || !password.trim() || !content.trim()) {
       alert("닉네임, 비밀번호, 내용을 모두 입력해주세요.");
       return;
@@ -278,6 +288,16 @@ export default function EpisodePage({
         className="flex flex-col gap-2.5 rounded-xl border border-neutral-800 bg-neutral-900 p-3.5"
       >
         <div className="grid grid-cols-3 gap-2">
+          <input
+            type="text"
+            value={botTrap}
+            onChange={(e) => setBotTrap(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            aria-hidden="true"
+          />
+
           <input
             type="text"
             placeholder="익명 닉네임"

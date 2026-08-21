@@ -51,8 +51,9 @@ export default function HomePage() {
             <span className="font-semibold text-amber-200">
               스포일러 주의 안내:{" "}
             </span>
-            5화 이후는 유료 회차입니다. 배려 넘치는 감상을 위해 과도한
-            스포일러는 예고 없이 블라인드 처리될 수 있습니다.
+            5화 이후는 유료 회차입니다. 원작 저작권 보호를 위해 과도한
+            스포일러(대사 유출, 상세 묘사 등)는 예고 없이 블라인드 처리될 수
+            있습니다.
           </div>
         </div>
 
@@ -61,7 +62,7 @@ export default function HomePage() {
             &lt;비마이게스트&gt; 회차별 불판
           </h1>
           <p className="text-xs text-neutral-400">
-            (총 {TOTAL_EPISODES}부작) 캡처 대신 텍스트로 달리는 실시간 감상존
+            (총 {TOTAL_EPISODES}부작) 텍스트로 달리는 실시간 감상존
           </p>
         </div>
 

@@ -1,69 +1,123 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
+const TOTAL_EPISODES = 53;
+const TABS = [
+  { label: "1-15화", start: 1, end: 15 },
+  { label: "16-30화", start: 16, end: 30 },
+  { label: "31-45화", start: 31, end: 45 },
+  { label: "46-53화", start: 46, end: 53 },
+];
+
+export default function HomePage() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const currentTab = TABS[activeTab];
+  const episodeList = Array.from(
+    { length: currentTab.end - currentTab.start + 1 },
+    (_, i) => currentTab.start + i,
+  );
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <>
+      <section className="flex flex-col items-center gap-3 text-center">
+        <a
+          href="/poster.jpeg"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="포스터 원본 크게 보기"
+          className="group relative block h-24 w-24 cursor-pointer overflow-hidden rounded-full border-2 border-rose-500/50 bg-neutral-900 shadow-lg shadow-rose-500/20 transition active:scale-95"
+        >
+          <Image
+            src="/poster.jpeg"
+            alt="드라마 포스터"
+            fill
+            priority
+            className="object-cover transition duration-300 group-hover:scale-110"
+          />
+
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+            🔍
+          </div>
+        </a>
+
+        <div className="flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-300/90">
+          <span className="shrink-0 text-sm">⚠️</span>
+          <div>
+            <span className="font-semibold text-amber-200">
+              스포일러 주의 안내:{" "}
+            </span>
+            5화 이후는 유료 회차입니다. 배려 넘치는 감상을 위해 과도한
+            스포일러는 예고 없이 블라인드 처리될 수 있습니다.
+          </div>
+        </div>
+
+        <div className="space-y-1">
+          <h1 className="text-xl font-bold tracking-tight text-white">
+            &lt;비마이게스트&gt; 회차별 불판
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xs text-neutral-400">
+            (총 {TOTAL_EPISODES}부작) 캡처 대신 텍스트로 달리는 실시간 감상존
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <a
+          href="https://www.lezhinsnack.com/ko/viewer/BGuest/0"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-rose-600 px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-rose-500 active:scale-95"
+        >
+          <span>레진에서 정주행하기</span>
+          <span className="text-xs">↗</span>
+        </a>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-sm font-semibold text-neutral-300">
+            회차 바로가기
+          </h2>
+          <span className="text-[11px] text-neutral-500">
+            원하는 회차를 터치하세요
+          </span>
         </div>
-      </main>
-    </div>
+
+        <div className="grid grid-cols-4 gap-1.5 rounded-xl border border-neutral-800 bg-neutral-900/80 p-1">
+          {TABS.map((tab, idx) => (
+            <button
+              key={tab.label}
+              onClick={() => setActiveTab(idx)}
+              className={`rounded-lg py-1.5 text-xs font-medium transition ${
+                activeTab === idx
+                  ? "bg-neutral-800 font-bold text-rose-400 shadow-sm"
+                  : "text-neutral-400 hover:text-neutral-200"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-4 gap-2">
+          {episodeList.map((epNum) => (
+            <Link
+              key={epNum}
+              href={`/episode/${epNum}`}
+              className="group relative flex h-16 flex-col items-center justify-center rounded-xl border border-neutral-800/80 bg-neutral-900 transition hover:border-rose-500/50 active:scale-95"
+            >
+              <span className="font-mono text-[10px] text-neutral-500 group-hover:text-rose-400">
+                EP
+              </span>
+              <span className="text-base font-bold text-neutral-200 group-hover:text-white">
+                {epNum}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

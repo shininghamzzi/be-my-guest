@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔥 BE MY GUEST (비 마이 게스트) 실시간 회차별 감상 불판
 
-## Getting Started
+레진 숏폼드라마 **〈비 마이 게스트〉** 시청자 및 팬들을 위한 1~53화 익명 실시간 감상 타래 커뮤니티입니다.  
+게스트하우스 '느루' 스태프 **연준이(이태빈 배우)**의 미모와 연기 주접, 매 회차 명장면 타임라인을 나누는 공간입니다. 🐹✨
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📱 주요 기능 (Key Features)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **회차별 불판 아카이브**: 1화부터 53화까지 회차별 독립 댓글 게시판 제공
+- **타임스탬프 태깅**: `01:23` 형식의 초 단위 태그를 통해 명장면/리액션 구간 공유
+- **정렬 옵션**: `최신순` 및 시간 흐름대로 보는 `타임라인순 ⏱` 정렬 토글 지원
+- **익명 비밀번호 시스템**: 작성 시 설정한 4자리 비밀번호로 본인 댓글 수정 및 삭제 가능
+- **클린 불판 관리**: 유료 회차(6화~) 스포일러 주의 안내 및 관리자 블라인드 기능
+- **모바일 최적화**: 다크 모드 기반의 반응형 숏폼 커뮤니티 UI
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠 기술 스택 (Tech Stack)
 
-## Learn More
+- **Frontend**: Next.js (App Router), React, TypeScript
+- **Styling**: Tailwind CSS, Lucide React
+- **Backend / Database**: Supabase (PostgreSQL, Row Level Security)
+- **Deployment**: Vercel
 
-To learn more about Next.js, take a look at the following resources:
+---
+## 📜 이용 수칙
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 비방, 욕설, 악의적인 댓글 및 치명적인 내용 누설(스포일러)은 무통보 블라인드 처리될 수 있습니다.
+- 5화 이후는 유료 회차이므로 과도한 핵심 스토리 누설에 주의해 주세요.
+- 모든 저작권은 레진(LEZHIN) 및 원작자/제작사에 있습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Made with 💙 for 이태빈 by [@shininghamzzi](https://x.com/shininghamzzi)**

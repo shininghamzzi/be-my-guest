@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
-import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,9 +43,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <p className="text-[11px] text-neutral-600">
                 비방·악플 및 치명적인 스포일러는 무통보 삭제될 수 있습니다.
               </p>
-
+              <p className="text-[10px] leading-tight text-neutral-600">
+                본 사이트는 비공식 팬 사이트이며, 작품의 모든 저작권은 LEZHIN 및
+                제작사에 있습니다.
+              </p>
               <p className="pt-1 font-mono text-[10px] text-neutral-600">
-                © 2026{" "}
+                Made with 💙 for 이태빈 by{" "}
                 <a
                   href="https://x.com/shininghamzzi"
                   target="_blank"
@@ -56,7 +57,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 >
                   @shininghamzzi
                 </a>
-                . All rights reserved.
               </p>
             </footer>
           </div>

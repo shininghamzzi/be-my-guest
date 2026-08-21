@@ -45,18 +45,6 @@ export default function HomePage() {
           </div>
         </a>
 
-        <div className="flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-300/90">
-          <span className="shrink-0 text-sm">⚠️</span>
-          <div>
-            <span className="font-semibold text-amber-200">
-              스포일러 주의 안내:{" "}
-            </span>
-            5화 이후는 유료 회차입니다. 원작 저작권 보호를 위해 과도한
-            스포일러(대사 유출, 상세 묘사 등)는 예고 없이 블라인드 처리될 수
-            있습니다.
-          </div>
-        </div>
-
         <div className="space-y-1">
           <h1 className="text-xl font-bold tracking-tight text-white">
             &lt;비마이게스트&gt; 회차별 불판
@@ -75,6 +63,18 @@ export default function HomePage() {
           <span>레진에서 정주행하기</span>
           <span className="text-xs">↗</span>
         </a>
+
+        <div className="mt-2 flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-300/90">
+          <span className="shrink-0 text-sm">⚠️</span>
+          <div>
+            <span className="font-semibold text-amber-200">
+              스포일러 주의 안내:{" "}
+            </span>
+            5화 이후는 유료 회차입니다. 원작 저작권 보호를 위해 과도한
+            스포일러(대사 유출, 상세 묘사 등)는 예고 없이 블라인드 처리될 수
+            있습니다.
+          </div>
+        </div>
       </section>
 
       <section className="flex flex-col gap-3">

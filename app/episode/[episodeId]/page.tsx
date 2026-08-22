@@ -81,7 +81,19 @@ export default function EpisodePage({
     const savedPassword = localStorage.getItem("bemyguest_password");
     if (savedNickname) setNickname(savedNickname);
     if (savedPassword) setPassword(savedPassword);
-  }, []);
+
+    try {
+      const visited = JSON.parse(
+        localStorage.getItem("bemyguest_visited") || "[]",
+      );
+      if (Array.isArray(visited) && !visited.includes(currentEpisodeId)) {
+        localStorage.setItem(
+          "bemyguest_visited",
+          JSON.stringify([...visited, currentEpisodeId]),
+        );
+      }
+    } catch {}
+  }, [currentEpisodeId]);
 
   const fetchComments = async () => {
     const { data } = await supabase

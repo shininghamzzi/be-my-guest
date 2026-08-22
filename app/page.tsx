@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ExternalLink, Link2 } from "lucide-react";
 
 const TOTAL_EPISODES = 53;
@@ -15,6 +15,18 @@ const TABS = [
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState(0);
+  const [visitedList, setVisitedList] = useState<number[]>([]);
+
+  useEffect(() => {
+    try {
+      const visited = JSON.parse(
+        localStorage.getItem("bemyguest_visited") || "[]",
+      );
+      if (Array.isArray(visited)) {
+        setVisitedList(visited);
+      }
+    } catch {}
+  }, []);
 
   const currentTab = TABS[activeTab];
   const episodeList = Array.from(
@@ -104,20 +116,39 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-4 gap-2">
-          {episodeList.map((epNum) => (
-            <Link
-              key={epNum}
-              href={`/episode/${epNum}`}
-              className="group relative flex h-16 flex-col items-center justify-center rounded-xl border border-neutral-800/80 bg-neutral-900 transition hover:border-rose-500/50 active:scale-95"
-            >
-              <span className="font-mono text-[10px] text-neutral-500 group-hover:text-rose-400">
-                EP
-              </span>
-              <span className="text-base font-bold text-neutral-200 group-hover:text-white">
-                {epNum}
-              </span>
-            </Link>
-          ))}
+          {episodeList.map((epNum) => {
+            const isVisited = visitedList.includes(epNum);
+            return (
+              <Link
+                key={epNum}
+                href={`/episode/${epNum}`}
+                className={`group flex h-16 flex-col items-center justify-center rounded-xl border transition active:scale-95 ${
+                  isVisited
+                    ? "border-rose-500/30 bg-rose-500/10 hover:border-rose-500/50"
+                    : "border-neutral-800/80 bg-neutral-900 hover:border-rose-500/50"
+                }`}
+              >
+                <span
+                  className={`font-mono text-[10px] ${
+                    isVisited
+                      ? "text-rose-400/80"
+                      : "text-neutral-500 group-hover:text-rose-400"
+                  }`}
+                >
+                  EP
+                </span>
+                <span
+                  className={`text-base font-bold ${
+                    isVisited
+                      ? "text-rose-300"
+                      : "text-neutral-200 group-hover:text-white"
+                  }`}
+                >
+                  {epNum}
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

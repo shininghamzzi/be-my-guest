@@ -48,6 +48,29 @@ const parseTimeToSeconds = (timeStr: string | null): number | null => {
   return null;
 };
 
+const formatCommentDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  const now = new Date();
+
+  const isToday =
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate();
+
+  if (isToday) {
+    return date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  return date.toLocaleDateString([], {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+};
+
 export default function EpisodePage({
   params,
 }: {
@@ -130,7 +153,7 @@ export default function EpisodePage({
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
     if (botTrap) return;
@@ -462,10 +485,7 @@ export default function EpisodePage({
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] text-neutral-500">
-                      {new Date(c.created_at).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
+                      {formatCommentDate(c.created_at)}
                     </span>
                     {!c.is_hidden && (
                       <div className="flex items-center gap-2">

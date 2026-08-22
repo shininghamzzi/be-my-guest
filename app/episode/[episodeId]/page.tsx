@@ -5,6 +5,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import {
   ChevronLeft,
+  ChevronRight,
   MessageSquare,
   Send,
   Clock,
@@ -25,6 +26,8 @@ interface Comment {
   created_at: string;
 }
 
+const TOTAL_EPISODES = 53;
+
 const parseTimeToSeconds = (timeStr: string | null): number | null => {
   if (!timeStr) return null;
   const clean = timeStr.trim();
@@ -34,7 +37,7 @@ const parseTimeToSeconds = (timeStr: string | null): number | null => {
     const mins = Number(mmssMatch[1]);
     const secs = Number(mmssMatch[2]);
     const total = mins * 60 + secs;
-    return total <= 600 ? total : null; // 최대 10분(600초) 이내만 정상 인정
+    return total <= 600 ? total : null;
   }
 
   if (/^\d{1,3}$/.test(clean)) {
@@ -53,6 +56,10 @@ export default function EpisodePage({
   const { episodeId } = use(params);
   const currentEpisodeId = Number(episodeId);
 
+  const prevEpisodeId = currentEpisodeId > 1 ? currentEpisodeId - 1 : null;
+  const nextEpisodeId =
+    currentEpisodeId < TOTAL_EPISODES ? currentEpisodeId + 1 : null;
+
   const [comments, setComments] = useState<Comment[]>([]);
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -68,6 +75,13 @@ export default function EpisodePage({
   const [editContent, setEditContent] = useState("");
   const [editTimestampTag, setEditTimestampTag] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    const savedNickname = localStorage.getItem("bemyguest_nickname");
+    const savedPassword = localStorage.getItem("bemyguest_password");
+    if (savedNickname) setNickname(savedNickname);
+    if (savedPassword) setPassword(savedPassword);
+  }, []);
 
   const fetchComments = async () => {
     const { data } = await supabase
@@ -109,7 +123,6 @@ export default function EpisodePage({
 
     if (botTrap) return;
 
-    // 광고 링크 차단: http, https, .com 등이 포함된 경우
     if (/https?:\/\/|www\./i.test(content)) {
       alert("링크(URL)는 등록할 수 없습니다.");
       return;
@@ -136,6 +149,9 @@ export default function EpisodePage({
     if (error) {
       alert("댓글 등록에 실패했습니다.");
     } else {
+      localStorage.setItem("bemyguest_nickname", nickname.trim());
+      localStorage.setItem("bemyguest_password", password.trim());
+
       setContent("");
       setTimestampTag("");
       fetchComments();
@@ -145,7 +161,7 @@ export default function EpisodePage({
   const openModal = (comment: Comment, type: "edit" | "delete") => {
     setModalComment(comment);
     setModalType(type);
-    setModalPassword("");
+    setModalPassword(localStorage.getItem("bemyguest_password") || "");
     if (type === "edit") {
       setEditContent(comment.content);
       setEditTimestampTag(comment.timestamp_tag || "");
@@ -253,10 +269,38 @@ export default function EpisodePage({
           <ChevronLeft size={16} />
           <span>회차 목록</span>
         </Link>
-        <h1 className="text-base font-bold text-rose-400">
-          EP.{String(episodeId).padStart(2, "0")} 불판
-        </h1>
-        <div className="w-12"></div>
+
+        <div className="flex items-center gap-2">
+          {prevEpisodeId ? (
+            <Link
+              href={`/episode/${prevEpisodeId}`}
+              className="rounded p-1 text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+              title="이전 회차"
+            >
+              <ChevronLeft size={16} />
+            </Link>
+          ) : (
+            <div className="w-6" />
+          )}
+
+          <h1 className="text-base font-bold text-rose-400">
+            EP.{String(episodeId).padStart(2, "0")} 불판
+          </h1>
+
+          {nextEpisodeId ? (
+            <Link
+              href={`/episode/${nextEpisodeId}`}
+              className="rounded p-1 text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+              title="다음 회차"
+            >
+              <ChevronRight size={16} />
+            </Link>
+          ) : (
+            <div className="w-6" />
+          )}
+        </div>
+
+        <div className="w-14" />
       </header>
 
       <div className="flex flex-col gap-2">
@@ -299,7 +343,7 @@ export default function EpisodePage({
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             maxLength={15}
-            className="rounded-lg border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-xs focus:border-rose-500/50 focus:outline-none"
+            className="rounded-lg border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-xs text-white focus:border-rose-500/50 focus:outline-none"
           />
           <input
             type="password"
@@ -307,7 +351,7 @@ export default function EpisodePage({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             maxLength={4}
-            className="rounded-lg border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-xs focus:border-rose-500/50 focus:outline-none"
+            className="rounded-lg border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-xs text-white focus:border-rose-500/50 focus:outline-none"
           />
           <input
             type="text"
@@ -326,7 +370,7 @@ export default function EpisodePage({
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={3}
-          className="w-full resize-none rounded-lg border border-neutral-800 bg-neutral-950 p-2.5 text-xs placeholder:text-neutral-600 focus:border-rose-500/50 focus:outline-none"
+          className="w-full resize-none rounded-lg border border-neutral-800 bg-neutral-950 p-2.5 text-xs text-white placeholder:text-neutral-600 focus:border-rose-500/50 focus:outline-none"
         />
 
         <button
@@ -446,6 +490,32 @@ export default function EpisodePage({
           )}
         </div>
       </section>
+
+      <div className="grid grid-cols-2 gap-2 pt-2">
+        {prevEpisodeId ? (
+          <Link
+            href={`/episode/${prevEpisodeId}`}
+            className="flex items-center justify-center gap-1 rounded-xl border border-neutral-800 bg-neutral-900/80 py-3 text-xs font-medium text-neutral-300 transition hover:bg-neutral-800"
+          >
+            <ChevronLeft size={14} />
+            <span>EP.{String(prevEpisodeId).padStart(2, "0")} 이전화</span>
+          </Link>
+        ) : (
+          <div />
+        )}
+
+        {nextEpisodeId ? (
+          <Link
+            href={`/episode/${nextEpisodeId}`}
+            className="flex items-center justify-center gap-1 rounded-xl border border-rose-500/30 bg-rose-500/10 py-3 text-xs font-semibold text-rose-300 transition hover:bg-rose-500/20"
+          >
+            <span>EP.{String(nextEpisodeId).padStart(2, "0")} 다음화</span>
+            <ChevronRight size={14} />
+          </Link>
+        ) : (
+          <div />
+        )}
+      </div>
 
       {modalType && modalComment && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-xs">

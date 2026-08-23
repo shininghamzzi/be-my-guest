@@ -639,7 +639,7 @@ export default function EpisodePage({
                           src={c.gif_url}
                           alt="첨부된 GIF"
                           loading="lazy"
-                          className="max-h-48 max-w-[240px] rounded-lg border border-neutral-800 object-cover"
+                          className="max-h-24 max-w-[120px] rounded-lg border border-neutral-800 object-cover"
                         />
                       </div>
                     )}
@@ -682,9 +682,7 @@ export default function EpisodePage({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
           <div className="flex h-[420px] w-full max-w-sm flex-col rounded-2xl border border-neutral-800 bg-neutral-900 p-4 shadow-xl">
             <div className="mb-3 flex items-center justify-between border-b border-neutral-800 pb-2">
-              <h3 className="text-xs font-bold text-neutral-200">
-                GIF 짤 검색
-              </h3>
+              <h3 className="text-xs font-bold text-neutral-200">GIF 검색</h3>
               <button
                 onClick={() => setIsGifModalOpen(false)}
                 className="text-neutral-400 hover:text-white"

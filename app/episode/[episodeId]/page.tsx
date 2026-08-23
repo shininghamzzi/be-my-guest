@@ -84,6 +84,7 @@ export default function EpisodePage({
     currentEpisodeId < TOTAL_EPISODES ? currentEpisodeId + 1 : null;
 
   const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [timestampTag, setTimestampTag] = useState("");
@@ -119,6 +120,7 @@ export default function EpisodePage({
   }, [currentEpisodeId]);
 
   const fetchComments = async () => {
+    setIsLoading(true);
     const { data } = await supabase
       .from("comments")
       .select("*")
@@ -126,6 +128,7 @@ export default function EpisodePage({
       .order("created_at", { ascending: false });
 
     if (data) setComments(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -211,7 +214,7 @@ export default function EpisodePage({
     setEditTimestampTag("");
   };
 
-  const handleEditSubmit = async (e: React.FormEvent) => {
+  const handleEditSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!modalComment) return;
     if (!modalPassword.trim()) {
@@ -256,7 +259,7 @@ export default function EpisodePage({
     }
   };
 
-  const handleDeleteSubmit = async (e: React.FormEvent) => {
+  const handleDeleteSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!modalComment) return;
     if (!modalPassword.trim()) {
@@ -422,7 +425,12 @@ export default function EpisodePage({
         <div className="flex items-center justify-between px-1 text-xs text-neutral-400">
           <span className="flex items-center gap-1">
             <MessageSquare size={13} />
-            댓글 {comments.length}개
+            댓글{" "}
+            {isLoading ? (
+              <span className="inline-block h-3 w-8 animate-pulse rounded bg-neutral-800" />
+            ) : (
+              `${comments.length}개`
+            )}
           </span>
 
           <div className="flex items-center gap-2">
@@ -461,7 +469,20 @@ export default function EpisodePage({
         </div>
 
         <div className="space-y-2.5">
-          {sortedComments.length === 0 ? (
+          {isLoading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex animate-pulse flex-col gap-2 rounded-xl border border-neutral-800/80 bg-neutral-900/40 p-3"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="h-3.5 w-20 rounded bg-neutral-800" />
+                  <div className="h-3.5 w-12 rounded bg-neutral-800" />
+                </div>
+                <div className="h-3 w-3/4 rounded bg-neutral-800/60" />
+              </div>
+            ))
+          ) : sortedComments.length === 0 ? (
             <div className="py-12 text-center text-xs text-neutral-600">
               첫 번째 감상 댓글을 남겨보세요!
             </div>

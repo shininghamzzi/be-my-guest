@@ -639,7 +639,7 @@ export default function EpisodePage({
                           src={c.gif_url}
                           alt="첨부된 GIF"
                           loading="lazy"
-                          className="max-h-24 max-w-[120px] rounded-lg border border-neutral-800 object-cover"
+                          className="max-h-48 max-w-[240px] rounded-lg border border-neutral-800 object-cover"
                         />
                       </div>
                     )}

@@ -14,6 +14,8 @@ import {
   Trash2,
   X,
   Check,
+  Search,
+  Film,
 } from "lucide-react";
 
 interface Comment {
@@ -22,11 +24,23 @@ interface Comment {
   nickname: string;
   content: string;
   timestamp_tag: string | null;
+  gif_url?: string | null;
   is_hidden: boolean;
   created_at: string;
 }
 
+interface GiphyItem {
+  id: string;
+  title: string;
+  images: {
+    fixed_height: {
+      url: string;
+    };
+  };
+}
+
 const TOTAL_EPISODES = 53;
+const GIPHY_API_KEY = process.env.NEXT_PUBLIC_GIPHY_API_KEY || "";
 
 const parseTimeToSeconds = (timeStr: string | null): number | null => {
   if (!timeStr) return null;
@@ -84,20 +98,27 @@ export default function EpisodePage({
     currentEpisodeId < TOTAL_EPISODES ? currentEpisodeId + 1 : null;
 
   const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(true);
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [timestampTag, setTimestampTag] = useState("");
   const [content, setContent] = useState("");
+  const [selectedGif, setSelectedGif] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sortBy, setSortBy] = useState<"latest" | "timeline">("latest");
   const [botTrap, setBotTrap] = useState("");
+
+  const [isGifModalOpen, setIsGifModalOpen] = useState(false);
+  const [gifSearchQuery, setGifSearchQuery] = useState("");
+  const [gifList, setGifList] = useState<GiphyItem[]>([]);
+  const [isGifLoading, setIsGifLoading] = useState(false);
 
   const [modalComment, setModalComment] = useState<Comment | null>(null);
   const [modalType, setModalType] = useState<"edit" | "delete" | null>(null);
   const [modalPassword, setModalPassword] = useState("");
   const [editContent, setEditContent] = useState("");
   const [editTimestampTag, setEditTimestampTag] = useState("");
+  const [editGifUrl, setEditGifUrl] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
@@ -135,6 +156,41 @@ export default function EpisodePage({
     fetchComments();
   }, [episodeId]);
 
+  const fetchGifs = async (query: string = "") => {
+    if (!GIPHY_API_KEY) return;
+    setIsGifLoading(true);
+    try {
+      const endpoint = query.trim()
+        ? `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(
+            query,
+          )}&limit=24&rating=g`
+        : `https://api.giphy.com/v1/gifs/trending?api_key=${GIPHY_API_KEY}&limit=24&rating=g`;
+
+      const res = await fetch(endpoint);
+      const json = await res.json();
+      if (json.data) {
+        setGifList(json.data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsGifLoading(false);
+    }
+  };
+
+  const openGifModal = () => {
+    setIsGifModalOpen(true);
+    if (gifList.length === 0) {
+      fetchGifs("");
+    }
+  };
+
+  const handleSelectGif = (url: string) => {
+    setSelectedGif(url);
+    setIsGifModalOpen(false);
+    setGifSearchQuery("");
+  };
+
   const handleTimestampInput = (val: string, setter: (v: string) => void) => {
     const digits = val.replace(/[^0-9]/g, "").slice(0, 4);
     if (digits.length >= 3) {
@@ -166,8 +222,12 @@ export default function EpisodePage({
       return;
     }
 
-    if (!nickname.trim() || !password.trim() || !content.trim()) {
-      alert("닉네임, 비밀번호, 내용을 모두 입력해주세요.");
+    if (
+      !nickname.trim() ||
+      !password.trim() ||
+      (!content.trim() && !selectedGif)
+    ) {
+      alert("닉네임, 비밀번호 및 내용이나 GIF를 입력해주세요.");
       return;
     }
 
@@ -179,6 +239,7 @@ export default function EpisodePage({
         password: password.trim(),
         timestamp_tag: timestampTag.trim() || null,
         content: content.trim(),
+        gif_url: selectedGif || null,
       },
     ]);
 
@@ -192,6 +253,7 @@ export default function EpisodePage({
 
       setContent("");
       setTimestampTag("");
+      setSelectedGif(null);
       fetchComments();
     }
   };
@@ -203,6 +265,7 @@ export default function EpisodePage({
     if (type === "edit") {
       setEditContent(comment.content);
       setEditTimestampTag(comment.timestamp_tag || "");
+      setEditGifUrl(comment.gif_url || null);
     }
   };
 
@@ -212,6 +275,7 @@ export default function EpisodePage({
     setModalPassword("");
     setEditContent("");
     setEditTimestampTag("");
+    setEditGifUrl(null);
   };
 
   const handleEditSubmit = async (e: React.SubmitEvent) => {
@@ -221,7 +285,7 @@ export default function EpisodePage({
       alert("비밀번호 4자리를 입력해주세요.");
       return;
     }
-    if (!editContent.trim()) {
+    if (!editContent.trim() && !editGifUrl) {
       alert("내용을 입력해주세요.");
       return;
     }
@@ -245,6 +309,7 @@ export default function EpisodePage({
       .update({
         content: editContent.trim(),
         timestamp_tag: editTimestampTag.trim() || null,
+        gif_url: editGifUrl || null,
       })
       .eq("id", modalComment.id);
 
@@ -404,21 +469,49 @@ export default function EpisodePage({
         </div>
 
         <textarea
-          placeholder="감상을 남겨주세요! (타임라인 환영)"
+          placeholder="감상을 남겨주세요! (타임라인 & GIF 환영)"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={3}
           className="w-full resize-none rounded-lg border border-neutral-800 bg-neutral-950 p-2.5 text-xs text-white placeholder:text-neutral-600 focus:border-rose-500/50 focus:outline-none"
         />
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="inline-flex items-center gap-1.5 self-end rounded-lg bg-rose-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-rose-500 disabled:bg-neutral-800"
-        >
-          <Send size={12} />
-          <span>{isSubmitting ? "등록 중..." : "감상 남기기"}</span>
-        </button>
+        {selectedGif && (
+          <div className="relative inline-block self-start">
+            <img
+              src={selectedGif}
+              alt="선택된 GIF"
+              className="h-24 rounded-lg border border-neutral-700 object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => setSelectedGif(null)}
+              className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-700 bg-neutral-900 text-neutral-300 hover:text-white"
+            >
+              <X size={10} />
+            </button>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between pt-1">
+          <button
+            type="button"
+            onClick={openGifModal}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-800 bg-neutral-950 px-2.5 py-1.5 text-xs font-semibold text-neutral-300 transition hover:border-neutral-700 hover:text-white"
+          >
+            <Film size={13} className="text-rose-400" />
+            <span>GIF 첨부</span>
+          </button>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-rose-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-rose-500 disabled:bg-neutral-800"
+          >
+            <Send size={12} />
+            <span>{isSubmitting ? "등록 중..." : "감상 남기기"}</span>
+          </button>
+        </div>
       </form>
 
       <section className="flex flex-col gap-3">
@@ -534,9 +627,23 @@ export default function EpisodePage({
                     [관리자에 의해 가려진 댓글입니다]
                   </p>
                 ) : (
-                  <p className="text-xs leading-relaxed whitespace-pre-wrap text-neutral-200">
-                    {c.content}
-                  </p>
+                  <>
+                    {c.content && (
+                      <p className="text-xs leading-relaxed whitespace-pre-wrap text-neutral-200">
+                        {c.content}
+                      </p>
+                    )}
+                    {c.gif_url && (
+                      <div className="pt-1">
+                        <img
+                          src={c.gif_url}
+                          alt="첨부된 GIF"
+                          loading="lazy"
+                          className="max-h-48 max-w-[240px] rounded-lg border border-neutral-800 object-cover"
+                        />
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             ))
@@ -570,6 +677,82 @@ export default function EpisodePage({
         )}
       </div>
 
+      {/* Giphy GIF 검색 모달 */}
+      {isGifModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-xs">
+          <div className="flex h-[420px] w-full max-w-sm flex-col rounded-2xl border border-neutral-800 bg-neutral-900 p-4 shadow-xl">
+            <div className="mb-3 flex items-center justify-between border-b border-neutral-800 pb-2">
+              <h3 className="text-xs font-bold text-neutral-200">
+                GIF 짤 검색
+              </h3>
+              <button
+                onClick={() => setIsGifModalOpen(false)}
+                className="text-neutral-400 hover:text-white"
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                fetchGifs(gifSearchQuery);
+              }}
+              className="relative mb-3"
+            >
+              <input
+                type="text"
+                placeholder="검색어 입력 (예: 햄스터, 눈물, 환호)"
+                value={gifSearchQuery}
+                onChange={(e) => setGifSearchQuery(e.target.value)}
+                autoFocus
+                className="w-full rounded-lg border border-neutral-800 bg-neutral-950 py-1.5 pr-8 pl-2.5 text-xs text-white placeholder:text-neutral-600 focus:border-rose-500/50 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="absolute top-1/2 right-2.5 -translate-y-1/2 text-neutral-400 hover:text-rose-400"
+              >
+                <Search size={13} />
+              </button>
+            </form>
+
+            <div className="grid flex-1 grid-cols-2 gap-2 overflow-y-auto pr-1">
+              {isGifLoading ? (
+                Array.from({ length: 6 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-24 animate-pulse rounded-lg bg-neutral-800"
+                  />
+                ))
+              ) : gifList.length === 0 ? (
+                <div className="col-span-2 flex h-full items-center justify-center text-xs text-neutral-600">
+                  검색 결과가 없습니다.
+                </div>
+              ) : (
+                gifList.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() =>
+                      handleSelectGif(item.images.fixed_height.url)
+                    }
+                    className="group relative h-24 w-full overflow-hidden rounded-lg border border-neutral-800 transition hover:border-rose-500/50"
+                  >
+                    <img
+                      src={item.images.fixed_height.url}
+                      alt={item.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition group-hover:scale-105"
+                    />
+                  </button>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 수정/삭제 모달 */}
       {modalType && modalComment && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-xs">
           <div className="w-full max-w-xs rounded-2xl border border-neutral-800 bg-neutral-900 p-4 shadow-xl">
@@ -653,9 +836,24 @@ export default function EpisodePage({
                   value={editContent}
                   onChange={(e) => setEditContent(e.target.value)}
                   rows={3}
-                  required
                   className="w-full resize-none rounded-lg border border-neutral-800 bg-neutral-950 p-2.5 text-xs text-white focus:border-rose-500/50 focus:outline-none"
                 />
+                {editGifUrl && (
+                  <div className="relative inline-block self-start">
+                    <img
+                      src={editGifUrl}
+                      alt="첨부된 GIF"
+                      className="h-20 rounded-lg border border-neutral-700 object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setEditGifUrl(null)}
+                      className="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-neutral-700 bg-neutral-900 text-neutral-300 hover:text-white"
+                    >
+                      <X size={9} />
+                    </button>
+                  </div>
+                )}
                 <div className="flex justify-end gap-2 pt-1">
                   <button
                     type="button"

@@ -9,7 +9,7 @@ export default function Icon() {
     <div
       style={{
         fontSize: 24,
-        background: "#000000",
+        background: "#ffffff",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -18,7 +18,7 @@ export default function Icon() {
         borderRadius: "50%",
       }}
     >
-      🔥
+      💕
     </div>,
     { ...size },
   );

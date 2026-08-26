@@ -14,7 +14,7 @@ export function EpisodeNotices({
       {showBanner && (
         <div className="flex items-center justify-between gap-2 rounded-xl border border-neutral-800 bg-neutral-900/90 px-3 py-2 text-xs text-neutral-300">
           <div className="flex items-center gap-1.5 overflow-hidden">
-            <span className="shrink-0 rounded bg-rose-500/20 px-1.5 py-0.5 text-[10px] font-bold text-rose-400">
+            <span className="bg-mint/35 text-ink shrink-0 rounded px-1.5 py-0.5 text-[10px] font-bold">
               NEW
             </span>
             <span className="truncate">

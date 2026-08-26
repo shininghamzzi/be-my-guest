@@ -36,56 +36,24 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col items-center gap-3 text-center">
-        <a
-          href="/poster.jpeg"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="포스터 원본 크게 보기"
-          className="group relative block h-24 w-24 cursor-pointer overflow-hidden rounded-full border-2 border-rose-500/50 bg-neutral-900 shadow-lg shadow-rose-500/20 transition active:scale-95"
-        >
+      <section className="flex flex-col items-center gap-3 pt-10 text-center">
+        <div className="group relative block h-30 w-120 overflow-hidden">
           <Image
-            src="/poster.jpeg"
-            alt="드라마 포스터"
+            src="/logo.png"
+            alt="비마이게스트 로고"
             fill
             priority
-            className="object-cover transition duration-300 group-hover:scale-110"
+            className="object-contain"
           />
-
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
-            🔍
-          </div>
-        </a>
+        </div>
 
         <div className="space-y-1">
           <h1 className="text-xl font-bold tracking-tight text-white">
-            &lt;비마이게스트&gt; 회차별 불판
+            회차별 불판
           </h1>
           <p className="text-xs text-neutral-400">
             (총 {TOTAL_EPISODES}부작) 텍스트로 달리는 실시간 감상존
           </p>
-        </div>
-
-        <a
-          href="https://www.lezhinsnack.com/ko/viewer/BGuest/0"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-rose-600 px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-rose-500 active:scale-95"
-        >
-          <span>레진에서 정주행하기</span>
-          <span className="text-xs">↗</span>
-        </a>
-
-        <div className="mt-2 flex items-start gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-300/90">
-          <span className="shrink-0 text-sm">⚠️</span>
-          <div>
-            <span className="font-semibold text-amber-200">
-              스포일러 주의 안내:{" "}
-            </span>
-            5화 이후는 유료 회차입니다. 원작 저작권 보호를 위해 과도한
-            스포일러(대사 유출, 상세 묘사 등)는 예고 없이 블라인드 처리될 수
-            있습니다.
-          </div>
         </div>
       </section>
 
@@ -106,7 +74,7 @@ export default function HomePage() {
               onClick={() => setActiveTab(idx)}
               className={`rounded-lg py-1.5 text-xs font-medium transition ${
                 activeTab === idx
-                  ? "bg-neutral-800 font-bold text-rose-400 shadow-sm"
+                  ? "bg-lavender/65 text-ink font-bold shadow-sm"
                   : "text-neutral-400 hover:text-neutral-200"
               }`}
             >
@@ -124,15 +92,15 @@ export default function HomePage() {
                 href={`/episode/${epNum}`}
                 className={`group flex h-16 flex-col items-center justify-center rounded-xl border transition active:scale-95 ${
                   isVisited
-                    ? "border-rose-500/30 bg-rose-500/10 hover:border-rose-500/50"
-                    : "border-neutral-800/80 bg-neutral-900 hover:border-rose-500/50"
+                    ? "border-mint/60 bg-mint/20 hover:border-mint"
+                    : "hover:border-accent/60 border-neutral-800/80 bg-neutral-900"
                 }`}
               >
                 <span
                   className={`font-mono text-[10px] ${
                     isVisited
-                      ? "text-rose-400/80"
-                      : "text-neutral-500 group-hover:text-rose-400"
+                      ? "text-primary/80"
+                      : "group-hover:text-accent text-neutral-500"
                   }`}
                 >
                   EP
@@ -140,8 +108,8 @@ export default function HomePage() {
                 <span
                   className={`text-base font-bold ${
                     isVisited
-                      ? "text-rose-300"
-                      : "text-neutral-200 group-hover:text-white"
+                      ? "text-primary"
+                      : "group-hover:text-accent text-neutral-200"
                   }`}
                 >
                   {epNum}

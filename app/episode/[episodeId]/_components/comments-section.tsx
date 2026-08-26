@@ -178,12 +178,12 @@ function CommentCard({
             <button
               type="button"
               onClick={() => setIsSpoilerRevealed(true)}
-              className="flex min-h-20 w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-amber-400/25 bg-amber-400/5 px-3 py-4 text-xs text-amber-200 transition hover:border-amber-400/50 hover:bg-amber-400/10"
+              className="flex min-h-20 w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-amber-400/25 bg-amber-600/5 px-3 py-4 text-xs text-amber-600 transition hover:border-amber-400/50 hover:bg-amber-400/10"
               aria-label="스포일러 댓글 내용 보기"
             >
               <Eye size={15} />
               <span className="font-medium">스포일러가 포함된 댓글입니다</span>
-              <span className="text-[10px] text-amber-200/65">
+              <span className="text-[10px] text-amber-600/65">
                 클릭해서 보기
               </span>
             </button>

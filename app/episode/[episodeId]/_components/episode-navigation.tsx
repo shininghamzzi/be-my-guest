@@ -13,10 +13,10 @@ export function EpisodeHeader({
   nextEpisodeId,
 }: EpisodeNavigationProps) {
   return (
-    <header className="flex items-center justify-between border-b border-neutral-800/80 pb-3">
+    <header className="flex items-center justify-between border-b border-neutral-400/80 pb-3">
       <Link
         href="/"
-        className="hover:text-accent flex items-center gap-1 text-xs text-neutral-400 transition"
+        className="hover:text-primary flex items-center gap-1 text-xs text-neutral-800 transition"
       >
         <ChevronLeft size={16} />
         <span>회차 목록</span>
@@ -25,7 +25,7 @@ export function EpisodeHeader({
         {previousEpisodeId ? (
           <Link
             href={`/episode/${previousEpisodeId}`}
-            className="hover:bg-lavender/40 hover:text-accent rounded p-1 text-neutral-400 transition"
+            className="hover:bg-peach hover:text-primary rounded p-1 text-neutral-800 transition"
             title="이전 회차"
           >
             <ChevronLeft size={16} />
@@ -39,7 +39,7 @@ export function EpisodeHeader({
         {nextEpisodeId ? (
           <Link
             href={`/episode/${nextEpisodeId}`}
-            className="hover:bg-lavender/40 hover:text-accent rounded p-1 text-neutral-400 transition"
+            className="hover:bg-peach hover:text-primary rounded p-1 text-neutral-800 transition"
             title="다음 회차"
           >
             <ChevronRight size={16} />
@@ -62,7 +62,7 @@ export function EpisodeFooter({
       {previousEpisodeId ? (
         <Link
           href={`/episode/${previousEpisodeId}`}
-          className="hover:bg-lavender/30 flex items-center justify-center gap-1 rounded-xl border border-neutral-800 bg-neutral-900/80 py-3 text-xs font-medium text-neutral-300 transition"
+          className="hover:bg-peach flex items-center justify-center gap-1 rounded-xl border border-neutral-400 bg-neutral-200/80 py-3 text-xs font-medium text-neutral-900 transition"
         >
           <ChevronLeft size={14} />
           <span>EP.{String(previousEpisodeId).padStart(2, "0")} 이전화</span>

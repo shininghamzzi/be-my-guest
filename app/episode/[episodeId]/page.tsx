@@ -294,7 +294,7 @@ export default function EpisodePage({
   return (
     <>
       {toastMessage && (
-        <div className="fixed top-5 left-1/2 z-50 -translate-x-1/2 animate-bounce rounded-full border border-rose-500/40 bg-neutral-900/95 px-4 py-2 text-xs font-semibold text-rose-300 shadow-2xl backdrop-blur-md">
+        <div className="fixed top-5 left-1/2 z-50 -translate-x-1/2 animate-bounce rounded-full border border-rose-500/40 bg-neutral-200/95 px-4 py-2 text-xs font-semibold text-rose-300 shadow-2xl backdrop-blur-md">
           {toastMessage}
         </div>
       )}

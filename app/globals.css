@@ -11,25 +11,20 @@
   --color-foreground: var(--foreground);
   --color-primary: #ff689d;
   --color-secondary: #ffcde1;
-  --color-accent: #7faeeb;
-  --color-mint: #7bddba;
-  --color-lavender: #c4b5fd;
   --color-peach: #ffe7d6;
   --color-ink: #3b2633;
 
-  /* Existing utility classes use this soft, light-scale color system. */
-  --color-white: #3b2633;
-  --color-black: #3b2633;
-  --color-neutral-950: #fffafd;
-  --color-neutral-900: #fff4f8;
-  --color-neutral-800: #ffcde1;
-  --color-neutral-700: #eaa8c4;
+  /* Neutral shades follow the standard light (100) to dark (950) order. */
+  --color-neutral-100: #fffafd;
+  --color-neutral-200: #fff4f8;
+  --color-neutral-300: #ffe8f0;
+  --color-neutral-400: #ffcde1;
+  --color-neutral-500: #eaa8c4;
   --color-neutral-600: #9b7182;
-  --color-neutral-500: #805b6b;
-  --color-neutral-400: #694857;
-  --color-neutral-300: #583945;
-  --color-neutral-200: #472d38;
-  --color-neutral-100: #3b2633;
+  --color-neutral-700: #805b6b;
+  --color-neutral-800: #694857;
+  --color-neutral-900: #583945;
+  --color-neutral-950: #3b2633;
   --color-rose-50: #fff5f8;
   --color-rose-100: #ffe8f0;
   --color-rose-200: #ffcde1;

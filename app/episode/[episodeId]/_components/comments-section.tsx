@@ -36,29 +36,29 @@ export function CommentsSection({
 }: CommentsSectionProps) {
   return (
     <section className="flex flex-col gap-3">
-      <div className="flex items-center justify-between px-1 text-xs text-neutral-400">
+      <div className="flex items-center justify-between px-1 text-xs text-neutral-800">
         <span className="flex items-center gap-1">
           <MessageSquare size={13} />
           댓글{" "}
           {isLoading ? (
-            <span className="inline-block h-3 w-8 animate-pulse rounded bg-neutral-800" />
+            <span className="inline-block h-3 w-8 animate-pulse rounded bg-neutral-400" />
           ) : (
             `${comments.length}개`
           )}
         </span>
         <div className="flex items-center gap-2">
-          <div className="flex items-center rounded-lg border border-neutral-800 bg-neutral-900 p-0.5 text-[11px]">
+          <div className="flex items-center rounded-lg border border-neutral-400 bg-neutral-200 p-0.5 text-[11px]">
             <button
               type="button"
               onClick={() => onSortChange("latest")}
-              className={`rounded-md px-2 py-0.5 transition ${sortBy === "latest" ? "bg-neutral-800 font-bold text-rose-400" : "text-neutral-500 hover:text-neutral-300"}`}
+              className={`rounded-md px-2 py-0.5 transition ${sortBy === "latest" ? "bg-neutral-400 font-bold text-rose-400" : "text-neutral-700 hover:text-neutral-900"}`}
             >
               최신순
             </button>
             <button
               type="button"
               onClick={() => onSortChange("timeline")}
-              className={`rounded-md px-2 py-0.5 transition ${sortBy === "timeline" ? "bg-neutral-800 font-bold text-rose-400" : "text-neutral-500 hover:text-neutral-300"}`}
+              className={`rounded-md px-2 py-0.5 transition ${sortBy === "timeline" ? "bg-neutral-400 font-bold text-rose-400" : "text-neutral-700 hover:text-neutral-900"}`}
             >
               타임라인순 ⏱
             </button>
@@ -76,13 +76,13 @@ export function CommentsSection({
           Array.from({ length: 3 }).map((_, index) => (
             <div
               key={index}
-              className="flex animate-pulse flex-col gap-2 rounded-xl border border-neutral-800/80 bg-neutral-900/40 p-3"
+              className="flex animate-pulse flex-col gap-2 rounded-xl border border-neutral-400/80 bg-neutral-200/40 p-3"
             >
               <div className="flex items-center justify-between">
-                <div className="h-3.5 w-20 rounded bg-neutral-800" />
-                <div className="h-3.5 w-12 rounded bg-neutral-800" />
+                <div className="h-3.5 w-20 rounded bg-neutral-400" />
+                <div className="h-3.5 w-12 rounded bg-neutral-400" />
               </div>
-              <div className="h-3 w-3/4 rounded bg-neutral-800/60" />
+              <div className="h-3 w-3/4 rounded bg-neutral-400/60" />
             </div>
           ))
         ) : comments.length === 0 ? (
@@ -125,10 +125,10 @@ function CommentCard({
   const isSpoilerHidden = comment.is_spoiler && !isSpoilerRevealed;
 
   return (
-    <div className="flex flex-col gap-1.5 rounded-xl border border-neutral-800/80 bg-neutral-900/60 p-3">
+    <div className="flex flex-col gap-1.5 rounded-xl border border-neutral-400/80 bg-neutral-200/60 p-3">
       <div className="flex items-center justify-between text-[11px]">
         <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-neutral-300">
+          <span className="font-semibold text-neutral-900">
             {comment.nickname}
           </span>
           {comment.timestamp_tag && (
@@ -145,21 +145,21 @@ function CommentCard({
           )}
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] text-neutral-500">
+          <span className="text-[10px] text-neutral-700">
             {formatCommentDate(comment.created_at)}
           </span>
           {!comment.is_hidden && (
             <div className="flex items-center gap-2">
               <button
                 onClick={onEdit}
-                className="text-neutral-500 transition hover:text-rose-400"
+                className="text-neutral-700 transition hover:text-rose-400"
                 title="수정"
               >
                 <Edit2 size={12} />
               </button>
               <button
                 onClick={onDelete}
-                className="text-neutral-500 transition hover:text-rose-400"
+                className="text-neutral-700 transition hover:text-rose-400"
                 title="삭제"
               >
                 <Trash2 size={12} />
@@ -190,7 +190,7 @@ function CommentCard({
           ) : (
             <>
               {comment.content && (
-                <p className="text-xs leading-relaxed whitespace-pre-wrap text-neutral-200">
+                <p className="text-xs leading-relaxed whitespace-pre-wrap text-neutral-950">
                   {comment.content}
                 </p>
               )}
@@ -200,7 +200,7 @@ function CommentCard({
                     src={comment.gif_url}
                     alt="첨부된 GIF"
                     loading="lazy"
-                    className="max-h-48 max-w-[240px] rounded-lg border border-neutral-800 object-cover"
+                    className="max-h-48 max-w-[240px] rounded-lg border border-neutral-400 object-cover"
                   />
                 </div>
               )}
@@ -219,12 +219,12 @@ function CommentCard({
               <button
                 type="button"
                 onClick={onHeart}
-                className="group flex items-center gap-1.5 rounded-full border border-neutral-800 bg-neutral-950/70 px-2.5 py-1 text-[11px] font-medium text-neutral-400 transition hover:border-rose-500/40 hover:bg-rose-500/10 hover:text-rose-400 active:scale-95"
+                className="group flex items-center gap-1.5 rounded-full border border-neutral-400 bg-neutral-100/70 px-2.5 py-1 text-[11px] font-medium text-neutral-800 transition hover:border-rose-500/40 hover:bg-rose-500/10 hover:text-rose-400 active:scale-95"
                 title="공감 연타하기"
               >
                 <Heart
                   size={12}
-                  className={`transition group-hover:scale-110 ${comment.heart_count ? "fill-rose-500 text-rose-500" : "text-neutral-400 group-hover:text-rose-400"}`}
+                  className={`transition group-hover:scale-110 ${comment.heart_count ? "fill-rose-500 text-rose-500" : "text-neutral-800 group-hover:text-rose-400"}`}
                 />
                 <span>{comment.heart_count || 0}</span>
               </button>

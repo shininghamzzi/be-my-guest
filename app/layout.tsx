@@ -37,11 +37,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
-        <main className="bg-secondary selection:bg-primary selection:text-ink flex min-h-screen justify-center bg-[radial-gradient(circle_at_top,_#ffe7d6_0%,_#ffcde1_45%,_#f8f4ff_100%)] bg-[url('/bg_no-house_resize.jpg')] bg-cover bg-center text-neutral-100">
+        <main className="bg-secondary selection:bg-primary selection:text-ink flex min-h-screen justify-center bg-[radial-gradient(circle_at_top,_#ffe7d6_0%,_#ffcde1_45%,_#f8f4ff_100%)] bg-[url('/bg_no-house_resize.jpg')] bg-cover bg-fixed bg-center text-neutral-950">
           <div className="flex w-full max-w-md flex-col gap-6 px-4 py-8">
             {children}
 
-            <footer className="border-primary/20 mt-auto flex flex-col items-center gap-1.5 border-t py-8 text-center text-xs text-neutral-500">
+            <footer className="border-primary/20 mt-auto flex flex-col items-center gap-1.5 border-t py-8 text-center text-xs text-neutral-700">
               <p className="text-[11px] text-neutral-600">
                 비방·악플 및 치명적인 스포일러는 무통보 삭제될 수 있습니다.
               </p>
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   href="https://x.com/shininghamzzi"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent hover:text-primary underline underline-offset-2 transition"
+                  className="text-primary underline underline-offset-2 transition hover:text-rose-600"
                 >
                   @shininghamzzi
                 </a>

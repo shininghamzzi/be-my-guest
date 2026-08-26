@@ -73,7 +73,7 @@ export function EpisodeFooter({
       {nextEpisodeId ? (
         <Link
           href={`/episode/${nextEpisodeId}`}
-          className="flex items-center justify-center gap-1 rounded-xl border border-rose-500/30 bg-rose-500/10 py-3 text-xs font-semibold text-rose-300 transition hover:bg-rose-500/20"
+          className="text-primary flex items-center justify-center gap-1 rounded-xl border border-rose-500/30 bg-rose-500/10 py-3 text-xs font-semibold transition hover:bg-rose-500/20"
         >
           <span>EP.{String(nextEpisodeId).padStart(2, "0")} 다음화</span>
           <ChevronRight size={14} />

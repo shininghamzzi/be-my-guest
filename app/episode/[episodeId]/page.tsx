@@ -41,6 +41,7 @@ export default function EpisodePage({
   const [timestampTag, setTimestampTag] = useState("");
   const [content, setContent] = useState("");
   const [selectedGif, setSelectedGif] = useState<string | null>(null);
+  const [isSpoiler, setIsSpoiler] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sortBy, setSortBy] = useState<"latest" | "timeline">("latest");
   const [botTrap, setBotTrap] = useState("");
@@ -182,6 +183,7 @@ export default function EpisodePage({
         timestamp_tag: timestampTag.trim() || null,
         content: content.trim(),
         gif_url: selectedGif || null,
+        is_spoiler: isSpoiler,
       },
     ]);
     setIsSubmitting(false);
@@ -192,6 +194,7 @@ export default function EpisodePage({
       setContent("");
       setTimestampTag("");
       setSelectedGif(null);
+      setIsSpoiler(false);
       fetchComments();
     }
   };
@@ -314,6 +317,7 @@ export default function EpisodePage({
         timestampTag={timestampTag}
         content={content}
         selectedGif={selectedGif}
+        isSpoiler={isSpoiler}
         botTrap={botTrap}
         isSubmitting={isSubmitting}
         onNicknameChange={setNickname}
@@ -322,6 +326,7 @@ export default function EpisodePage({
           handleTimestampInput(value, setTimestampTag)
         }
         onContentChange={setContent}
+        onSpoilerChange={setIsSpoiler}
         onBotTrapChange={setBotTrap}
         onRemoveGif={() => setSelectedGif(null)}
         onOpenGifModal={() => {

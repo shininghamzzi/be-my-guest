@@ -1,4 +1,13 @@
-import { Clock, Edit2, Heart, MessageSquare, Trash2 } from "lucide-react";
+import {
+  Clock,
+  Edit2,
+  Eye,
+  EyeOff,
+  Heart,
+  MessageSquare,
+  Trash2,
+} from "lucide-react";
+import { useState } from "react";
 import type { Comment, FloatingHeart } from "./types";
 import { formatCommentDate } from "./utils";
 
@@ -112,6 +121,9 @@ function CommentCard({
   onDelete: () => void;
   onHeart: () => void;
 }) {
+  const [isSpoilerRevealed, setIsSpoilerRevealed] = useState(false);
+  const isSpoilerHidden = comment.is_spoiler && !isSpoilerRevealed;
+
   return (
     <div className="flex flex-col gap-1.5 rounded-xl border border-neutral-800/80 bg-neutral-900/60 p-3">
       <div className="flex items-center justify-between text-[11px]">
@@ -123,6 +135,12 @@ function CommentCard({
             <span className="inline-flex items-center gap-0.5 rounded bg-rose-500/10 px-1.5 py-0.5 font-mono text-[10px] text-rose-400">
               <Clock size={10} />
               {comment.timestamp_tag}
+            </span>
+          )}
+          {comment.is_spoiler && (
+            <span className="inline-flex items-center gap-0.5 rounded bg-amber-400/10 px-1.5 py-0.5 text-[10px] text-amber-300">
+              <EyeOff size={10} />
+              스포일러
             </span>
           )}
         </div>
@@ -156,23 +174,38 @@ function CommentCard({
         </p>
       ) : (
         <>
-          <>
-            {comment.content && (
-              <p className="text-xs leading-relaxed whitespace-pre-wrap text-neutral-200">
-                {comment.content}
-              </p>
-            )}
-            {comment.gif_url && (
-              <div className="pt-1">
-                <img
-                  src={comment.gif_url}
-                  alt="첨부된 GIF"
-                  loading="lazy"
-                  className="max-h-48 max-w-[240px] rounded-lg border border-neutral-800 object-cover"
-                />
-              </div>
-            )}
-          </>
+          {isSpoilerHidden ? (
+            <button
+              type="button"
+              onClick={() => setIsSpoilerRevealed(true)}
+              className="flex min-h-20 w-full flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-amber-400/25 bg-amber-400/5 px-3 py-4 text-xs text-amber-200 transition hover:border-amber-400/50 hover:bg-amber-400/10"
+              aria-label="스포일러 댓글 내용 보기"
+            >
+              <Eye size={15} />
+              <span className="font-medium">스포일러가 포함된 댓글입니다</span>
+              <span className="text-[10px] text-amber-200/65">
+                클릭해서 보기
+              </span>
+            </button>
+          ) : (
+            <>
+              {comment.content && (
+                <p className="text-xs leading-relaxed whitespace-pre-wrap text-neutral-200">
+                  {comment.content}
+                </p>
+              )}
+              {comment.gif_url && (
+                <div className="pt-1">
+                  <img
+                    src={comment.gif_url}
+                    alt="첨부된 GIF"
+                    loading="lazy"
+                    className="max-h-48 max-w-[240px] rounded-lg border border-neutral-800 object-cover"
+                  />
+                </div>
+              )}
+            </>
+          )}
           <div className="flex justify-end pt-1">
             <div className="relative inline-flex items-center">
               {floatingHearts.map((heart) => (

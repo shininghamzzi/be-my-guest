@@ -1,4 +1,4 @@
-import { Film, Send, X } from "lucide-react";
+import { EyeOff, Film, Send, X } from "lucide-react";
 
 interface CommentFormProps {
   nickname: string;
@@ -6,12 +6,14 @@ interface CommentFormProps {
   timestampTag: string;
   content: string;
   selectedGif: string | null;
+  isSpoiler: boolean;
   botTrap: string;
   isSubmitting: boolean;
   onNicknameChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onTimestampChange: (value: string) => void;
   onContentChange: (value: string) => void;
+  onSpoilerChange: (value: boolean) => void;
   onBotTrapChange: (value: string) => void;
   onRemoveGif: () => void;
   onOpenGifModal: () => void;
@@ -66,6 +68,19 @@ export function CommentForm(props: CommentFormProps) {
         rows={3}
         className="w-full resize-none rounded-lg border border-neutral-800 bg-neutral-950 p-2.5 text-xs text-white placeholder:text-neutral-600 focus:border-rose-500/50 focus:outline-none"
       />
+      <label className="flex cursor-pointer items-center gap-2 self-start text-xs text-neutral-400">
+        <input
+          type="checkbox"
+          checked={props.isSpoiler}
+          onChange={(event) => props.onSpoilerChange(event.target.checked)}
+          className="h-3.5 w-3.5 accent-rose-500"
+        />
+        <EyeOff size={13} className="text-rose-400" />
+        <span>스포 방지</span>
+        <span className="text-[10px] text-neutral-600">
+          클릭해야 내용이 보여요
+        </span>
+      </label>
       {props.selectedGif && (
         <div className="relative inline-block self-start">
           <img

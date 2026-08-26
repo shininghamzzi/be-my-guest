@@ -7,6 +7,7 @@ export interface Comment {
   gif_url?: string | null;
   heart_count?: number;
   is_hidden: boolean;
+  is_spoiler?: boolean;
   created_at: string;
 }
 

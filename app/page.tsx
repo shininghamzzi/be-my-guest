@@ -151,69 +151,6 @@ export default function HomePage() {
           })}
         </div>
       </section>
-
-      <section className="mt-4 flex flex-col gap-3 border-t border-neutral-900 pt-6">
-        <div className="flex items-center justify-between px-1">
-          <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-wider text-neutral-500">
-            <Link2 size={12} />
-            <span>레진스낵 공식 홍보 영상</span>
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <a
-            href="https://www.instagram.com/reel/DcQSTFAlP11"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900/60 p-2.5 text-neutral-300 transition hover:border-rose-500/40 hover:bg-neutral-900"
-          >
-            <span className="text-[11px] font-medium">인스타 릴스 #1</span>
-            <ExternalLink
-              size={11}
-              className="text-neutral-600 group-hover:text-neutral-400"
-            />
-          </a>
-
-          <a
-            href="https://www.instagram.com/reel/DcQZHBJDeeI"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900/60 p-2.5 text-neutral-300 transition hover:border-rose-500/40 hover:bg-neutral-900"
-          >
-            <span className="text-[11px] font-medium">인스타 릴스 #2</span>
-            <ExternalLink
-              size={11}
-              className="text-neutral-600 group-hover:text-neutral-400"
-            />
-          </a>
-
-          <a
-            href="https://www.youtube.com/shorts/5QmOG-lD4Is"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900/60 p-2.5 text-neutral-300 transition hover:border-rose-500/40 hover:bg-neutral-900"
-          >
-            <span className="text-[11px] font-medium">유튜브 쇼츠 #1</span>
-            <ExternalLink
-              size={11}
-              className="text-neutral-600 group-hover:text-neutral-400"
-            />
-          </a>
-
-          <a
-            href="https://www.youtube.com/shorts/vryl5YlAtIM"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900/60 p-2.5 text-neutral-300 transition hover:border-rose-500/40 hover:bg-neutral-900"
-          >
-            <span className="text-[11px] font-medium">유튜브 쇼츠 #2</span>
-            <ExternalLink
-              size={11}
-              className="text-neutral-600 group-hover:text-neutral-400"
-            />
-          </a>
-        </div>
-      </section>
     </>
   );
 }

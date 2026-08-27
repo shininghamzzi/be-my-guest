@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 interface EpisodeNavigationProps {
   episodeId: string;
@@ -48,7 +48,15 @@ export function EpisodeHeader({
           <div className="w-6" />
         )}
       </div>
-      <div className="w-14" />
+      <a
+        href={`https://www.lezhinsnack.com/ko/viewer/BGuest/${episodeId}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 rounded-md bg-rose-200 px-2 py-1 text-xs text-gray-700 transition hover:bg-rose-500 hover:text-white active:scale-95"
+      >
+        <span>본편 보기</span>
+        <ExternalLink size={13} aria-hidden="true" />
+      </a>
     </header>
   );
 }

@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tv-be-my-guest.vercel.app/"),
-  title: "비마이게스트 회차별 불판",
+  title: "비마이게스트 (비 마이 게스트) 회차별 불판 & 아카이브 | LEZHIN SNACK",
   description: "(총 53부작) 텍스트로 달리는 실시간 감상존",
   keywords: [
     "비마이게스트",

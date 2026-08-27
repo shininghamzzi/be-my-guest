@@ -14,6 +14,18 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://tv-be-my-guest.vercel.app/"),
   title: "비마이게스트 회차별 불판",
   description: "(총 53부작) 텍스트로 달리는 실시간 감상존",
+  keywords: [
+    "비마이게스트",
+    "비 마이 게스트",
+    "비마이게스트 불판",
+    "이태빈",
+    "레진스낵",
+    "비마이게스트 회차별",
+    "비마이게스트 아카이브",
+    "Be My Guest",
+    "이태빈 숏드라마",
+  ],
+  authors: [{ name: "shininghamzzi" }],
   openGraph: {
     title: "비마이게스트 회차별 불판 🎬",
     description: "(총 53부작) 텍스트로 달리는 실시간 감상존",

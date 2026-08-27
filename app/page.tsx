@@ -35,7 +35,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="flex flex-col items-center gap-3 pt-2 text-center">
+      <section className="flex flex-col items-center gap-2.5 pt-8 text-center">
         <div className="group relative block aspect-[2172/724] w-full max-w-[320px]">
           <Image
             src="/logo.png"
@@ -61,7 +61,7 @@ export default function HomePage() {
           rel="noreferrer"
           className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-rose-600 px-4 py-2 text-xs font-semibold text-white shadow-md transition hover:bg-rose-500 active:scale-95"
         >
-          <span>레진에서 정주행하기</span>
+          <span>레진스낵에서 정주행하기</span>
           <span className="text-xs">↗</span>
         </a>
       </section>

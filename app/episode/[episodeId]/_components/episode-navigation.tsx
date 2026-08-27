@@ -13,7 +13,7 @@ export function EpisodeHeader({
   nextEpisodeId,
 }: EpisodeNavigationProps) {
   return (
-    <header className="flex items-center justify-between border-b border-neutral-400/80 pb-3">
+    <header className="-mt-4 flex items-center justify-between border-b border-neutral-400/80 pb-3">
       <Link
         href="/"
         className="hover:text-primary flex items-center gap-1 text-xs text-neutral-800 transition"

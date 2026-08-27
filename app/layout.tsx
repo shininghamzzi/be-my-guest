@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import Footer from "@/app/_components/footer";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -41,26 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="flex w-full max-w-md flex-col gap-6 px-4 py-8">
             {children}
 
-            <footer className="border-primary/20 mt-auto flex flex-col items-center gap-1.5 border-t py-8 text-center text-xs text-neutral-700">
-              <p className="text-[11px] text-neutral-600">
-                비방·악플 및 치명적인 스포일러는 무통보 삭제될 수 있습니다.
-              </p>
-              <p className="text-[10px] leading-tight text-neutral-600">
-                본 사이트는 비공식 팬 사이트이며, 작품의 모든 저작권은 LEZHIN
-                SNACK 및 제작사에 있습니다.
-              </p>
-              <p className="pt-1 font-mono text-[10px] text-neutral-600">
-                Made with 💙 for 이태빈 by{" "}
-                <a
-                  href="https://x.com/shininghamzzi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary underline underline-offset-2 transition hover:text-rose-600"
-                >
-                  @shininghamzzi
-                </a>
-              </p>
-            </footer>
+            <Footer />
           </div>
         </main>
         <Analytics />

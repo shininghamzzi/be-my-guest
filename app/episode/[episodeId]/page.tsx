@@ -57,7 +57,6 @@ export default function EpisodePage({
   const [editGifUrl, setEditGifUrl] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // localStorage hydration intentionally happens once per episode navigation.
   useEffect(() => {
     const savedNickname = localStorage.getItem("bemyguest_nickname");
     const savedPassword = localStorage.getItem("bemyguest_password");

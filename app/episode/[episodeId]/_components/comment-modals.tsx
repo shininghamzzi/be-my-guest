@@ -192,7 +192,7 @@ export function CommentModal(props: CommentModalProps) {
               <button
                 type="submit"
                 disabled={props.isProcessing}
-                className="flex items-center gap-1 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-neutral-900 hover:bg-rose-500 disabled:bg-neutral-400"
+                className="flex items-center gap-1 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-500 disabled:bg-neutral-400"
               >
                 <Check size={12} />
                 <span>{props.isProcessing ? "저장 중..." : "수정 완료"}</span>

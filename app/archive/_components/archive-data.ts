@@ -37,6 +37,20 @@ export const ARCHIVE_DATA: RawArchiveItem[] = [
     url: "https://youtube.com/shorts/N5l1od-Ju18?si=t0cboL4OjLJ1gkIT",
   },
   {
+    id: "s6",
+    category: "drama",
+    type: "youtube_short",
+    badge: "홍보영상",
+    url: "https://youtube.com/shorts/p1jyAEs52gY?si=q8yL_AoRG0Sh2TVS",
+  },
+  {
+    id: "s7",
+    category: "drama",
+    type: "youtube_short",
+    badge: "홍보영상",
+    url: "https://youtube.com/shorts/iXjyj2sKi0o?si=bqbr5CXxezQNSo08",
+  },
+  {
     id: "d1",
     category: "drama",
     type: "youtube_long",
@@ -51,8 +65,7 @@ export const ARCHIVE_DATA: RawArchiveItem[] = [
     badge: "공식 SNS",
     title: "레진스낵 공식 인스타그램",
     desc: "공식 스틸컷, 현장 릴스 및 공지",
-    thumbnail:
-      "https://scontent-icn2-1.cdninstagram.com/v/t51.82787-19/722408045_17875177293673286_5313087605163510938_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=BGDpBKCvF4UQ7kNvwG9NfB4&_nc_oc=AdrN0HdXdbdQ6I_XXXvJae9y3dtIz29YlbW_setldQ-__1W8avpcak1qR-lG8bDyE-g&_nc_zt=24&_nc_ht=scontent-icn2-1.cdninstagram.com&_nc_gid=uTFs0JEcArIlPJgqXHBC8Q&_nc_ss=7b689&oh=00_AQGTN03RPtisUKTKk3AIWh4wsG7BA7NZGI9OKynICS0pbw&oe=6A961E96",
+    thumbnail: "/logo_lezhinsnack.png",
     url: "https://www.instagram.com/lezhinsnack/",
   },
   {
@@ -95,8 +108,7 @@ export const ARCHIVE_DATA: RawArchiveItem[] = [
     badge: "배우 인스타그램",
     title: "이태빈 (@taevin.lee) 공식 인스타그램",
     desc: "연준이 본체 태빈이의 일상과 촬영장 셀카 📸",
-    thumbnail:
-      "https://scontent-icn2-1.cdninstagram.com/v/t51.82787-19/716610735_18204220435346901_4499788932522230572_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy44MjAuQzMifQ%3D%3D&_nc_ohc=a1liacBvFpYQ7kNvwF2VW9h&_nc_oc=AdoypgLP4fWHfODN0lda6aLueoaaDcrXqpVQdfquCQSRkowf5g5fVq-fmYJAwDjkyD4&_nc_zt=24&_nc_ht=scontent-icn2-1.cdninstagram.com&_nc_gid=3AcikPW8ALZMwrUUy9v0UA&_nc_ss=7b689&oh=00_AQGaVihYo83qk2-o87JUz5mry_JQeNbrd7VS5HfgliEqGw&oe=6A9618C4",
+    thumbnail: "/profile_tab.jpg",
     url: "https://instagram.com/taevin.lee",
   },
 ];
